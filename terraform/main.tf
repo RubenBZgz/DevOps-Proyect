@@ -4,6 +4,23 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.86.0"
     }
+  }/*
+  backend "azurerm" {
+    resource_group_name  = "TerraformRG"
+    storage_account_name = "storageaccountname"
+    container_name       = "tfstate"
+    key                  = "prod.terraform.tfstate"
+  }*/
+}
+
+data "terraform_remote_state" "backend" {
+  backend = "azurerm"
+
+  config = {
+    resource_group_name  = var.rsgname
+    storage_account_name = var.stgactname
+    container_name       = "tfstate"
+    key                  = "prod.terraform.tfstate"
   }
 }
 
@@ -39,7 +56,7 @@ locals {
 resource "azurerm_resource_group" "this" {
   name     = var.rsgname
   location = var.location
-  
+
   tags = local.tags
 }
 
@@ -69,7 +86,7 @@ resource "azurerm_linux_web_app" "this" {
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_service_plan.this.location
   service_plan_id     = azurerm_service_plan.this.id
-  
+
   site_config {}
 
 }
@@ -107,4 +124,9 @@ resource "azurerm_mssql_server" "example" {
   tags = {
     environment = "production"
   }
+}
+
+#<--------------------OUTPUT-------------------->
+output "azurerm_storage_account" {
+  value = azurerm_storage_account.this.name
 }

@@ -2,6 +2,8 @@ version: '3.7'
 services:
   terraform:
     image: hashicorp/terraform
+    volumes:
+      - ".:/"
   selenium: #SELENIUM
     image: selenium/standalone-chrome-debug  
     ports:

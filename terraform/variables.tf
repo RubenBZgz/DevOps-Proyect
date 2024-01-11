@@ -18,6 +18,7 @@ variable "stgactname" {
   default     = "storageaccountname"
 }
 
+
 variable "replication_type" {
   type        = string
   description = "Subscription replication type"

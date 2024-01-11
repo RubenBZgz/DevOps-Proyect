@@ -41,4 +41,6 @@ docker build --tag terraform . --file terraform.dockerfile
 
 Parte 7:
 docker-compose build terraform
-docker-compose run --rm terraform
+docker-compose run --rm terraform init
+docker-compose run --rm terraform plan
+docker-compose run --rm terraform aply
