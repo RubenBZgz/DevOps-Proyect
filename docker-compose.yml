@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  terraform:
+    image: hashicorp/terraform
+  selenium: #SELENIUM
+    image: selenium/standalone-chrome-debug  
+    ports:
+      - 4444:4444
+      - 5901:5900
+  website:  #WEBSITE
+    build: 
+      context: .
+    ports:
+      - 80:80
+  unit-tests: # RSpec testing
+    environment:
+      - SELENIUM_HOST=selenium
+      - SELENIUM_PORT=4444
+    build: 
+      context: .
+      dockerfile: rspec.dockerfile
+    volumes:
+      - ".:/app"
+    command: 
+      - --pattern
+      - /app/spec/unit/*_spec.rb
+  #database:
+  #application_server:

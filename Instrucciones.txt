@@ -1,0 +1,44 @@
+Parte 1:
+docker build --tag website .
+docker run --publish 80:80 website
+
+Parte 2:
+docs.docker.com/compose
+#docker-compose run website. No funciona porque no mapea los puertos
+docker-compose up
+
+    Optional:
+    docker-compose ps. Mirar todos los containers
+    docker-compose down. Borrar todos los containers
+
+Containers:
+- Website genérica
+- RSpec para hacer testing
+- Capybara es un web driver para probar el testing
+- Selenium web driver apropiado
+
+ENTRYPOINT:
+There´s two ways of telling a container what command or what binary or application needs to start with is, 
+and the two ways to do that are entry point and command.
+CMD or ENTRYPOINT
+
+Parte 4: 
+docker-compose up -d website selenium
+Abrir RealVNC
+localhost:5901
+pass: secret
+
+docker-compose run --rm unit-tests
+
+
+Parte 5: 
+docker build -t terraform . -f terraform.dockerfile
+docker run --rm --interactive --tty --entrypoint sh terraform
+/terraform
+
+Parte 6:
+docker build --tag terraform . --file terraform.dockerfile 
+
+Parte 7:
+docker-compose build terraform
+docker-compose run --rm terraform
