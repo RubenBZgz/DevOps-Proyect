@@ -1,9 +1,7 @@
 # DevOps-Proyect
- DevOps proyect using Selenium, Docker, Terraform and Jenkins
-
-# Project Title
 
 Simple overview of use/purpose.
+DevOps proyect using Selenium, Docker, Terraform and Jenkins
 
 ## Description
 
@@ -30,6 +28,7 @@ An in-depth paragraph about your project and overview of use.
 * Step-by-step bullets
 ```
 docker-compose up
+docker-compose run --rm terraform
 ```
 
 ## Help
@@ -44,7 +43,7 @@ command to run if program contains helper info
 Contributors names and contact info
 
 ex. Rubén Baquedano
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+ex. [@Example](https://twitter.com/example)
 
 ## Version History
 
