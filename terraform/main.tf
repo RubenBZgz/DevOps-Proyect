@@ -4,7 +4,7 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.86.0"
     }
-  }/*
+  } /*
   backend "azurerm" {
     resource_group_name  = "TerraformRG"
     storage_account_name = "storageaccountname"
@@ -109,8 +109,8 @@ resource "azurerm_linux_web_app_slot" "dev" {
 # PENDIENTE
 resource "azurerm_mssql_server" "example" {
   name                         = "mssqlserver"
-  resource_group_name          = azurerm_resource_group.example.name
-  location                     = azurerm_resource_group.example.location
+  resource_group_name          = azurerm_resource_group.this.name
+  location                     = azurerm_resource_group.this.location
   version                      = "12.0"
   administrator_login          = "missadministrator"
   administrator_login_password = "thisIsKat11"

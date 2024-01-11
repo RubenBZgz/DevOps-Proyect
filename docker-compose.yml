@@ -3,7 +3,10 @@ services:
   terraform:
     image: hashicorp/terraform
     volumes:
-      - ".:/"
+      - ./terraform:/terra
+    working_dir: /terra
+    command:
+    - init
   selenium: #SELENIUM
     image: selenium/standalone-chrome-debug  
     ports:
