@@ -13,19 +13,9 @@ terraform {
   }*/
 }
 
-data "terraform_remote_state" "backend" {
-  backend = "azurerm"
-
-  config = {
-    resource_group_name  = var.rsgname
-    storage_account_name = var.stgactname
-    container_name       = "tfstate"
-    key                  = "prod.terraform.tfstate"
-  }
-}
-
+#https://learn.microsoft.com/en-us/azure/developer/terraform/authenticate-to-azure?tabs=bash
 provider "azurerm" {
-  skip_provider_registration = "true"
+  #skip_provider_registration = "true"
   features {}
 }
 
