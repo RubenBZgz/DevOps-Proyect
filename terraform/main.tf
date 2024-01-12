@@ -4,7 +4,9 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.86.0"
     }
-  } /*
+  }
+
+  /*  Remote Backend Incoming
   backend "azurerm" {
     resource_group_name  = "TerraformRG"
     storage_account_name = "storageaccountname"
@@ -17,6 +19,10 @@ terraform {
 provider "azurerm" {
   #skip_provider_registration = "true"
   features {}
+  subscription_id = var.azure_subscription_id
+  tenant_id       = var.azure_tenant_id
+  client_id       = var.azure_client_id
+  client_secret   = var.azure_client_secret
 }
 
 /*En este archivo.tf se está creando la estructura de 

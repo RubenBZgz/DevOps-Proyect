@@ -37,14 +37,26 @@ Also, I would like to implement an artifact repository. The only one I know is n
 
 * Describe any prerequisites, libraries, OS version, etc., needed before installing program.
 * Developed using Windows 10
-* Docker
+* [Docker](https://www.docker.com/products/docker-desktop/)
+* [Azure CLI](https://learn.microsoft.com/es-es/cli/azure/install-azure-cli-windows?tabs=azure-cli)
 * Azure subscription
+* Azure ApplicationId configured for terraform. In case you don't have it created, you can use this code on cmd :point_down:
+
+```
+az login --use-device-code
+
+#(Optional) If you have more than 1 subscription:
+    az account set --subscription "{Subscription Name}"
+
+az ad sp create-for-rbac --name terraform
+az role assignment create --assignee "{Your App ID}" --role "Contributor" --scope "/subscriptions/{Your Subscription ID}"
+```
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
-* After downloading the proyect, you need to set up your Azure credentials
+* How/where to download your program. Any modifications needed to be made to files/folders
+* After downloading the proyect, you need to create a file whose name is azure.env like this.
+![Image Alt text](/images/azure.env.PNG)
 
 ### Executing program
 
