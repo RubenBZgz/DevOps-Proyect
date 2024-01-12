@@ -2,15 +2,6 @@ Parte 1:
 docker build --tag website .
 docker run --publish 80:80 website
 
-Parte 2:
-docs.docker.com/compose
-#docker-compose run website. No funciona porque no mapea los puertos
-docker-compose up
-
-    Optional:
-    docker-compose ps. Mirar todos los containers
-    docker-compose down. Borrar todos los containers
-
 Containers:
 - Website genérica
 - RSpec para hacer testing
@@ -40,7 +31,6 @@ Parte 6:
 docker build --tag terraform . --file terraform.dockerfile 
 
 Parte 7:
-docker-compose build terraform
-docker-compose run --rm terraform init
-docker-compose run --rm terraform plan
-docker-compose run --rm terraform aply
+docker-compose run --rm -e WEBSITE_URL=(resultado de la url del web app) integration-test
+
+Falta RealVNC

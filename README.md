@@ -71,7 +71,9 @@ docker-compose run --rm terraform
 
 Any advise for common problems or issues.
 ```
-command to run if program contains helper info
+docker-compose run --rm unit-tests
+docker-compose run --rm terraform
+docker-compose run --rm azure
 ```
 
 ## Authors

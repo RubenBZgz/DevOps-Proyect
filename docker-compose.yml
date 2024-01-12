@@ -1,5 +1,14 @@
 version: '3.7'
 services:
+  jenkins:
+    build: 
+      context: .
+      dockerfile: jenkins.dockerfile
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - ".:/app"
+    ports:
+      - 8080:8080
   azure: 
     image: mcr.microsoft.com/azure-cli
   terraform:
@@ -19,6 +28,18 @@ services:
       context: .
     ports:
       - 80:80
+  integration-tests: # RSpec testing
+    environment:
+      - SELENIUM_HOST=selenium
+      - SELENIUM_PORT=4444
+    build: 
+      context: .
+      dockerfile: rspec.dockerfile
+    volumes:
+      - ".:/app"
+    command: 
+      - --pattern
+      - /app/spec/integration/*_spec.rb
   unit-tests: # RSpec testing
     environment:
       - SELENIUM_HOST=selenium

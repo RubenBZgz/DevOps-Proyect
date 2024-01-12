@@ -39,6 +39,7 @@ En proceso:
 3. Optimización de propiedades sin alterar la arquitectura. Ej: Blob stg hot, cold...
 4. Localización de fallos y de posibles mejoras.
 
+Falta pasar la website al web app
 */
 
 
@@ -84,7 +85,7 @@ resource "azurerm_linux_web_app" "this" {
   service_plan_id     = azurerm_service_plan.this.id
 
   site_config {}
-
+  
 }
 
 # Aquí se puede implementar un For Each.
@@ -125,4 +126,8 @@ resource "azurerm_mssql_server" "example" {
 #<--------------------OUTPUT-------------------->
 output "azurerm_storage_account" {
   value = azurerm_storage_account.this.name
+}
+
+output "default_website_url" {
+  value = "${azurerm_linux_web_app.this.name}.azurewebsites.net"
 }
