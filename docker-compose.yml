@@ -1,5 +1,7 @@
 version: '3.7'
 services:
+  azure: 
+    image: mcr.microsoft.com/azure-cli
   terraform:
     image: hashicorp/terraform
     volumes:
