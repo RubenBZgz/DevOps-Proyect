@@ -6,8 +6,32 @@ DevOps proyect using Selenium, Docker, Terraform and Jenkins
 ## Description
 
 An in-depth paragraph about your project and overview of use.
+This DevOps Proyect is based in the Linkedin Learning Course of DevOps Foundations: Your First Proyect, with the objective of create a functional website development environment in azure.
+
+
+## Future Changes
+
+* Azure infrasctructure modification:
+    * Apply best practices.
+    * DNS.
+    * Improve scalability and availability.
+    * Analysis of potential improvements.
+* Workflow modification:
+    * Update automatically Azure Web App after the WF is completed.
+
+#### Ideas:
+My idea is to have several repositories connected to the same CI/CD, separating website, testing and CI/CD tool, in order to have the benefits of Multi-Repo.
+Idk if it´s actually possible using Jenkins, the only tool that I know for sure that has this feature is ArgoCD.
+Also, I would like to implement an artifact repository. The only one I know is nexus, further investigation is needed.
 
 ## Getting Started
+
+### Resources
+
+* [Readme template](https://gist.github.com/DomPizzie/7a5ff55ffa9081f2de27c315f5018afc)
+* [Readme rules](https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/)
+* [Initial Microsoft Architecture](https://learn.microsoft.com/es-es/azure/architecture/web-apps/idea/scalable-ecommerce-web-app)
+* [Linkedin Learning Course](https://www.linkedin.com/learning/devops-foundations-your-first-project)
 
 ### Dependencies
 
@@ -43,7 +67,7 @@ command to run if program contains helper info
 Contributors names and contact info
 
 ex. Rubén Baquedano
-ex. [@Example](https://twitter.com/example)
+
 
 ## Version History
 
