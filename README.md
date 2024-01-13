@@ -30,7 +30,7 @@ Also, I would like to implement an artifact repository. The only one I know is n
 ### Resources
 
 * [Readme template](https://gist.github.com/DomPizzie/7a5ff55ffa9081f2de27c315f5018afc)
-* [Readme rules](https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/)
+<!-- * [Readme rules](https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/) -->
 * [Initial Microsoft Architecture](https://learn.microsoft.com/es-es/azure/architecture/web-apps/idea/scalable-ecommerce-web-app)
 * [Linkedin Learning Course](https://www.linkedin.com/learning/devops-foundations-your-first-project)
 
@@ -44,10 +44,6 @@ Also, I would like to implement an artifact repository. The only one I know is n
 * Azure ApplicationId configured for terraform. In case you don't have it created, you can use this code on cmd :point_down:
 ```
 az login --use-device-code
-
-#(Optional) If you have more than 1 subscription:
-    az account set --subscription "{Subscription Name}"
-
 az ad sp create-for-rbac --name terraform
 az role assignment create --assignee "{Your App ID}" --role "Contributor" --scope "/subscriptions/{Your Subscription ID}"
 ```
@@ -75,7 +71,7 @@ az role assignment create --assignee "{Your App ID}" --role "Contributor" --scop
 * Step-by-step bullets
 ```
 docker-compose up
-docker-compose run --rm terraform
+docker-compose run --rm terraform init
 ```
 
 ## Help
