@@ -2,7 +2,7 @@
 pipeline{
     agent any
     environment {
-        GIT_ALLOW_LOCAL_CHECKOUT = 'true'
+        JAVA_OPTS="-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true"
     }
     stages{
         stage("Build our website"){
