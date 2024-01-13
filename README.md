@@ -34,15 +34,14 @@ Also, I would like to implement an artifact repository. The only one I know is n
 * [Initial Microsoft Architecture](https://learn.microsoft.com/es-es/azure/architecture/web-apps/idea/scalable-ecommerce-web-app)
 * [Linkedin Learning Course](https://www.linkedin.com/learning/devops-foundations-your-first-project)
 
-### Dependencies
-
+### Dependencies and recommendations
+#### Must Have:
 * Describe any prerequisites, libraries, OS version, etc., needed before installing program.
 * Developed using Windows 10
 * [Docker](https://www.docker.com/products/docker-desktop/)
 * [Azure CLI](https://learn.microsoft.com/es-es/cli/azure/install-azure-cli-windows?tabs=azure-cli)
 * Azure subscription
 * Azure ApplicationId configured for terraform. In case you don't have it created, you can use this code on cmd :point_down:
-
 ```
 az login --use-device-code
 
@@ -53,12 +52,14 @@ az ad sp create-for-rbac --name terraform
 az role assignment create --assignee "{Your App ID}" --role "Contributor" --scope "/subscriptions/{Your Subscription ID}"
 ```
 
-### Recommendations
-#### Visual Studio Extensions:
+#### Optional
+##### Programs:
+* Git. 
+* RealVNC Viewer. Purpouse: testing.The connections is not encrypted, the security is not guaranted. Once installed, use localhost:5901 pass: secret after docker-compose up
+##### Visual Studio Extensions:
 * Azure Account (Azure Tools if you want the whole pack)
 * Docker
 * JenkinsFile Support from ivory-lab
-
 
 
 ### Installing
@@ -85,6 +86,11 @@ docker-compose run --rm unit-tests
 docker-compose run --rm terraform
 docker-compose run --rm azure
 ```
+Open Website:
+localhost:80
+
+Open Jenkins:
+localhost:8080
 
 ## Authors
 
@@ -113,3 +119,12 @@ Inspiration, code snippets, etc.
 * [dbader](https://github.com/dbader/readme-template)
 * [zenorocha](https://gist.github.com/zenorocha/4526327)
 * [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+
+
+## Responsabilidad y Advertencia
+
+Este proyecto se proporciona "tal cual", sin garantías de ningún tipo, ya sean expresas o implícitas. El autor no asume ninguna responsabilidad y no será responsable de ningún daño directo, indirecto, incidental, especial, ejemplar o consecuente (incluyendo, pero no limitado a, la adquisición de bienes o servicios; la pérdida de uso, de datos o de beneficios; o interrupción de negocios) causados por el uso o la imposibilidad de usar el proyecto, incluso si se ha advertido de la posibilidad de tales daños.
+
+El usuario asume la responsabilidad total del uso y la implementación de este proyecto. Se recomienda encarecidamente revisar y entender completamente el código y las configuraciones antes de utilizarlo en entornos de producción.
+
+<!-- En caso de dudas o inquietudes, se anima a los usuarios a ponerse en contacto con el autor del proyecto antes de proceder con la implementación. -->
