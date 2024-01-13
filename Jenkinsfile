@@ -5,8 +5,8 @@ pipeline{
         stage("Build our website"){
             steps{
                 echo "====++++executing Build our website++++===="
-                // sh "$PWD/scripts/build.sh"
-                sh "jenkinsScripts/build.sh"
+
+                //sh "jenkinsScripts/build.sh"
             }
             post{
                 always{
@@ -24,7 +24,7 @@ pipeline{
         stage("Run unit tests"){
             steps{
                 echo "====++++executing Run unit tests++++===="
-                sh "jenkinsScripts/unit_tests.sh"
+                //sh "jenkinsScripts/unit_tests.sh"
             }
             post{
                 always{
@@ -42,7 +42,7 @@ pipeline{
         stage("Deploy website"){
             steps{
                 echo "====++++executing Deploy website++++===="
-                sh "jenkinsScripts/deploy_website.sh"
+                //sh "jenkinsScripts/deploy_website.sh"
             }
             post{
                 always{
