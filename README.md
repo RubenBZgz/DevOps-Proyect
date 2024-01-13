@@ -6,7 +6,12 @@ DevOps proyect using Selenium, Docker, Terraform and Jenkins
 ## Description
 
 An in-depth paragraph about your project and overview of use.
-This DevOps Proyect is based in the Linkedin Learning Course of DevOps Foundations: Your First Proyect, with the objective of create a functional website development environment in azure.
+This DevOps Proyect is based in the Linkedin Learning Course of DevOps Foundations: Your First Proyect, with the objective of create a functional website development environment in azure. Technologies used:
+* Website example.
+* RSpec. Testing framework. Unit testing.
+* Selenium. Web driver used to automate web browser interactions. Integration testing.
+* Jenkins. CI/CD tool.
+* Docker. It is a platform to deploy containers.
 
 
 ## Future Changes
@@ -30,7 +35,7 @@ Also, I would like to implement an artifact repository. The only one I know is n
 ### Resources
 
 * [Readme template](https://gist.github.com/DomPizzie/7a5ff55ffa9081f2de27c315f5018afc)
-* [Readme rules](https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/)
+<!-- * [Readme rules](https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/) -->
 * [Initial Microsoft Architecture](https://learn.microsoft.com/es-es/azure/architecture/web-apps/idea/scalable-ecommerce-web-app)
 * [Linkedin Learning Course](https://www.linkedin.com/learning/devops-foundations-your-first-project)
 
@@ -44,15 +49,11 @@ Also, I would like to implement an artifact repository. The only one I know is n
 * Azure ApplicationId configured for terraform. In case you don't have it created, you can use this code on cmd :point_down:
 ```
 az login --use-device-code
-
-#(Optional) If you have more than 1 subscription:
-    az account set --subscription "{Subscription Name}"
-
 az ad sp create-for-rbac --name terraform
 az role assignment create --assignee "{Your App ID}" --role "Contributor" --scope "/subscriptions/{Your Subscription ID}"
 ```
 
-#### Optional
+#### Optional:
 ##### Programs:
 * Git. 
 * RealVNC Viewer. Purpouse: testing.The connections is not encrypted, the security is not guaranted. Once installed, use localhost:5901 pass: secret after docker-compose up
@@ -64,10 +65,34 @@ az role assignment create --assignee "{Your App ID}" --role "Contributor" --scop
 
 ### Installing
 
+#### Must Have:
 * How/where to download your program. Any modifications needed to be made to files/folders
-* After downloading the proyect, you need to create a file whose name is azure.env like this.
+1. After downloading the proyect, you need to create a file whose name is azure.env like this.
 ![Image Alt text](/images/azure.env.PNG)
-* Create a folder in C:\jenkins_home. You can change the location in the volume of jenkins service in docker-compose.yml. The password is in C:\jenkins_home\secrets\initialAdminPassword file
+2. Create a folder in C:\jenkins_home. You can change the location in the volume of jenkins service in docker-compose.yml. 
+3. Log in to Jenkins -> Enter localhost:8080 in the browser url. The password is in C:\jenkins_home\secrets\initialAdminPassword file.
+4. Create new job.
+5. At Branch Sources, add source, select Git and copy & paste GitHub proyect url to Proyect Repository field.
+6. Apply and save.
+
+
+#### Optional:
+If you want to use local scripts follow this steps.
+1. Add this code to docker-compose.yml
+```
+environment:
+    - JAVA_OPTS=-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true
+```
+2. Add this code to Jenkinsfile
+```
+stage("Build our website"){
+    steps{
+        echo "====++++executing Build our website++++===="
+        // sh "chmod +x jenkinsScripts/build.sh"
+        // sh "jenkinsScripts/build.sh"
+    }
+}
+```
 
 ### Executing program
 
@@ -75,8 +100,13 @@ az role assignment create --assignee "{Your App ID}" --role "Contributor" --scop
 * Step-by-step bullets
 ```
 docker-compose up
-docker-compose run --rm terraform
+docker-compose run --rm terraform init
 ```
+
+### NOT WORKING
+* Installing plugins by default from plugins.txt
+* Website code isn't deployed at Azure Web app
+* Integration tests
 
 ## Help
 

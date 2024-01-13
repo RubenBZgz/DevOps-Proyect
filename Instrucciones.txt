@@ -13,24 +13,15 @@ There´s two ways of telling a container what command or what binary or applicat
 and the two ways to do that are entry point and command.
 CMD or ENTRYPOINT
 
-Parte 4: 
-docker-compose up -d website selenium
-Abrir RealVNC
-localhost:5901
-pass: secret
-
-docker-compose run --rm unit-tests
 
 
-Parte 5: 
-docker build -t terraform . -f terraform.dockerfile
+
 docker run --rm --interactive --tty --entrypoint sh terraform
-/terraform
 
-Parte 6:
-docker build --tag terraform . --file terraform.dockerfile 
 
 Parte 7:
 docker-compose run --rm -e WEBSITE_URL=(resultado de la url del web app) integration-test
 
-Falta RealVNC
+
+git add -A copy. Copy files to branch
+git commit -m "Initialize repo"

@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  jenkins:
+  jenkins:  # JENKINS
     build: 
       context: .
       dockerfile: jenkins.dockerfile
@@ -9,7 +9,7 @@ services:
       - ".:/app"
     ports:
       - 8080:8080
-  azure: 
+  azure:  # AZURE
     image: mcr.microsoft.com/azure-cli
   terraform:
     image: hashicorp/terraform

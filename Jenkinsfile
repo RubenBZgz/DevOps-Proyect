@@ -1,14 +1,28 @@
 //jenkins.io/doc/book/pipeline/syntax/
 pipeline{
-    agent{
-        label "node"
-    }
+    agent any
     stages{
+        stage("terraform"){
+            steps{
+                echo "====++++terraform init++++===="
+                //sh 'docker-compose run --rm terraforn init'
+            }
+            post{
+                always{
+                    echo "====++++always++++===="
+                }
+                success{
+                    echo "====++++terraform executed successfully++++===="
+                }
+                failure{
+                    echo "====++++terraform execution failed++++===="
+                }
+        
+            }
+        }
         stage("Build our website"){
             steps{
                 echo "====++++executing Build our website++++===="
-                // sh "$PWD/scripts/build.sh"
-                sh "$PWD/scripts/build.sh"
             }
             post{
                 always{
@@ -26,7 +40,6 @@ pipeline{
         stage("Run unit tests"){
             steps{
                 echo "====++++executing Run unit tests++++===="
-                sh "$PWD/scripts/unit_test.sh"
             }
             post{
                 always{
@@ -44,7 +57,6 @@ pipeline{
         stage("Deploy website"){
             steps{
                 echo "====++++executing Deploy website++++===="
-                sh "$PWD/scripts/deploy_website.sh"
             }
             post{
                 always{
