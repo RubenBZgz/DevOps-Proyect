@@ -23,7 +23,7 @@ pipeline{
         stage("Build our website"){
             steps{
                 echo "====++++executing Build our website++++===="
-                sh "chmod +x build.sh"
+                sh "chmod +x jenkinsScripts/build.sh"
                 sh "jenkinsScripts/build.sh"
             }
             post{
