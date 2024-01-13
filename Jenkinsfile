@@ -2,11 +2,29 @@
 pipeline{
     agent any
     stages{
+        stage("terraform"){
+            steps{
+                echo "====++++terraform init++++===="
+                sh 'docker-compose run --rm terraforn init'
+            }
+            post{
+                always{
+                    echo "====++++always++++===="
+                }
+                success{
+                    echo "====++++terraform executed successfully++++===="
+                }
+                failure{
+                    echo "====++++terraform execution failed++++===="
+                }
+        
+            }
+        }
         stage("Build our website"){
             steps{
                 echo "====++++executing Build our website++++===="
-
-                //sh "jenkinsScripts/build.sh"
+                sh "chmod +x build.sh"
+                sh "jenkinsScripts/build.sh"
             }
             post{
                 always{
