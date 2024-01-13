@@ -2,7 +2,7 @@
 pipeline{
     agent any
     environment {
-        ALLOW_LOCAL_CHECKOUT = 'true'
+        hudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT = 'true'
     }
     stages{
         stage("Build our website"){
