@@ -5,7 +5,7 @@ pipeline{
         stage("terraform"){
             steps{
                 echo "====++++terraform init++++===="
-                sh 'docker-compose run --rm terraforn init'
+                //sh 'docker-compose run --rm terraforn init'
             }
             post{
                 always{
