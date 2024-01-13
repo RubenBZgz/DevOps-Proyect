@@ -1,8 +1,6 @@
 //jenkins.io/doc/book/pipeline/syntax/
 pipeline{
-    agent{
-        label "node"
-    }
+    agent any
     stages{
         stage("Build our website"){
             steps{
