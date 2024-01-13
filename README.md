@@ -18,6 +18,7 @@ This DevOps Proyect is based in the Linkedin Learning Course of DevOps Foundatio
     * Analysis of potential improvements.
 * Workflow modification:
     * Update automatically Azure Web App after the WF is completed.
+    * Multiple Jenkins slaves.
 
 #### Ideas:
 My idea is to have several repositories connected to the same CI/CD, separating website, testing and CI/CD tool, in order to have the benefits of Multi-Repo.
@@ -51,6 +52,14 @@ az login --use-device-code
 az ad sp create-for-rbac --name terraform
 az role assignment create --assignee "{Your App ID}" --role "Contributor" --scope "/subscriptions/{Your Subscription ID}"
 ```
+
+### Recommendations
+#### Visual Studio Extensions:
+* Azure Account (Azure Tools if you want the whole pack)
+* Docker
+* JenkinsFile Support from ivory-lab
+
+
 
 ### Installing
 
