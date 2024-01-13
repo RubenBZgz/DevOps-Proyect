@@ -2,3 +2,4 @@
 workflow-aggregator # jenkins pipelines as code
 seed
 git
+Token Macro

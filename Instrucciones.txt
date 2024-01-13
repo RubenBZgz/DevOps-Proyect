@@ -16,16 +16,12 @@ CMD or ENTRYPOINT
 
 
 
-Parte 5: 
-docker build -t terraform . -f terraform.dockerfile
 docker run --rm --interactive --tty --entrypoint sh terraform
-/terraform
 
-Parte 6:
-docker build --tag terraform . --file terraform.dockerfile 
 
 Parte 7:
 docker-compose run --rm -e WEBSITE_URL=(resultado de la url del web app) integration-test
+
 
 git add -A copy. Copy files to branch
 git commit -m "Initialize repo"

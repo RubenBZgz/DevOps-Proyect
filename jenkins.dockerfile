@@ -6,9 +6,7 @@ FROM jenkins/jenkins:alpine
 # COPY plugins.txt /usr/share/jenkins/plugins.txt
 # RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
 
-ENV JAVA_OPTS="-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true"
-COPY plugins.txt /tmp/plugins.txt
-RUN jenkins-plugin-cli --plugin-file /tmp/plugins.txt
+# NOT WORKING: Installing plugin by default from plugins.txt
+# COPY plugins.txt /tmp/plugins.txt
+# RUN jenkins-plugin-cli --plugin-file /tmp/plugins.txt
 EXPOSE 8080
-
-ENTRYPOINT [ "jenkins", "java $JAVA_OPTS" ]
