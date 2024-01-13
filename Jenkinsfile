@@ -1,6 +1,9 @@
 //jenkins.io/doc/book/pipeline/syntax/
 pipeline{
     agent any
+    environment {
+        ALLOW_LOCAL_CHECKOUT = 'true'
+    }
     stages{
         stage("Build our website"){
             steps{
