@@ -2,13 +2,15 @@
 pipeline{
     agent any
     environment {
-        hudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT = 'true'
+        ALLOW_LOCAL_CHECKOUT = 'true'
     }
     stages{
         stage("Build our website"){
             steps{
                 echo "====++++executing Build our website++++===="
                 // sh "$PWD/scripts/build.sh"
+                env.JAVA_OPTS = "-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=${ALLOW_LOCAL_CHECKOUT}"
+                checkout scm
                 sh "$PWD/scripts/build.sh"
             }
             post{
