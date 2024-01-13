@@ -57,6 +57,7 @@ az role assignment create --assignee "{Your App ID}" --role "Contributor" --scop
 * How/where to download your program. Any modifications needed to be made to files/folders
 * After downloading the proyect, you need to create a file whose name is azure.env like this.
 ![Image Alt text](/images/azure.env.PNG)
+* Create a folder in C:\jenkins_home. You can change the location in the volume of jenkins service in docker-compose.yml. The password is in C:\jenkins_home\secrets\initialAdminPassword file
 
 ### Executing program
 

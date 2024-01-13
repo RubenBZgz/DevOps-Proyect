@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: jenkins.dockerfile
     volumes:
-      - ./jenkins_home:/var/jenkins_home
+      - C:\jenkins_home:/var/jenkins_home
       - ".:/app"
     ports:
       - 8080:8080
