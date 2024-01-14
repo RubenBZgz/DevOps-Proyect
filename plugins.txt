@@ -5,3 +5,5 @@ git
 
 # Must have
 Docker Pipeline
+Maven Integration
+Pipeline Maven Integration
