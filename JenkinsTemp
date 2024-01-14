@@ -3,7 +3,9 @@ steps {
     // checkout scm
     git 'https://github.com/SokeOn/DevOps-Proyect'
 
-steps {
+stage('Checkout') {
+            steps {
                 // Automatically uses the default Git tool
                 git 'https://github.com/SokeOn/DevOps-Proyect'
-            }}
+            }
+        }

@@ -1,9 +1,7 @@
+// Falta poner checkout al principio
 pipeline{
     agent any
     stages {
-        stage('Checkout') {
-            
-        }
         stage('Build Maven') {
             steps{
                 echo "====++++executing Buid Maven++++===="
