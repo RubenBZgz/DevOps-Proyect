@@ -1,0 +1,5 @@
+steps {
+    // Automatically uses the default Git tool
+    // checkout scm
+    git 'https://github.com/SokeOn/DevOps-Proyect'
+}
