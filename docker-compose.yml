@@ -9,6 +9,7 @@ services:
       - ".:/app"
     ports:
       - 8080:8080
+      - 50000:50000 # Master - slave communication
   azure:  # AZURE
     image: mcr.microsoft.com/azure-cli
   terraform:

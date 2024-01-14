@@ -1,86 +1,31 @@
-//jenkins.io/doc/book/pipeline/syntax/
 pipeline{
     agent any
-    stages{
-        stage("terraform"){
-            steps{
-                echo "====++++terraform init++++===="
-                //sh 'docker-compose run --rm terraforn init'
-            }
-            post{
-                always{
-                    echo "====++++always++++===="
-                }
-                success{
-                    echo "====++++terraform executed successfully++++===="
-                }
-                failure{
-                    echo "====++++terraform execution failed++++===="
-                }
-        
-            }
-        }
-        stage("Build our website"){
-            steps{
-                echo "====++++executing Build our website++++===="
-            }
-            post{
-                always{
-                    echo "====++++always++++===="
-                }
-                success{
-                    echo "====++++Build our website executed successfully++++===="
-                }
-                failure{
-                    echo "====++++Build our website execution failed++++===="
-                }
-        
-            }
-        }
-        stage("Run unit tests"){
-            steps{
-                echo "====++++executing Run unit tests++++===="
-            }
-            post{
-                always{
-                    echo "====++++always++++===="
-                }
-                success{
-                    echo "====++++Run unit tests executed successfully++++===="
-                }
-                failure{
-                    echo "====++++Run unit tests execution failed++++===="
-                }
-        
-            }
-        }
-        stage("Deploy website"){
-            steps{
-                echo "====++++executing Deploy website++++===="
-            }
-            post{
-                always{
-                    echo "====++++always++++===="
-                }
-                success{
-                    echo "====++++Deploy website executed successfully++++===="
-                }
-                failure{
-                    echo "====++++Deploy website execution failed++++===="
-                }
-        
-            }
-        }
+    tools {
+        maven 'MAVEN'
     }
-    post{
-        always{
-            echo "========always========"
+    stages {
+        stage('Build Maven') {
+            steps{
+                checkout scmGit(branches: [[name: '**']], extensions: [], userRemoteConfigs: [[credentialsId: 'b9f18fcf-e461-4738-a678-44be8d0c1cad', url: 'https://github.com/SokeOn/DevOps-Proyect']])
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
         }
-        success{
-            echo "========pipeline executed successfully ========"
+        stage('Build Docker Image') {
+            steps {
+                script {
+                  sh 'docker build -t devopshint/my-app-1.0 .'
+                }
+            }
         }
-        failure{
-            echo "========pipeline execution failed========"
+        stage('Deploy Docker Image') {
+            steps {
+                script {
+                 withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                    sh 'docker login -u devopshint -p ${dockerhubpwd}'
+                 }  
+                 sh 'docker push devopshint/my-app-1.0'
+                }
+            }
         }
     }
 }

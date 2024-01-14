@@ -13,7 +13,6 @@ This DevOps Proyect is based in the Linkedin Learning Course of DevOps Foundatio
 * Jenkins. CI/CD tool.
 * Docker. It is a platform to deploy containers.
 
-
 ## Future Changes
 
 * Azure infrastructure modification:
@@ -29,6 +28,10 @@ This DevOps Proyect is based in the Linkedin Learning Course of DevOps Foundatio
     * More Docker security. User command in dockerfile and control groups
     * Automate CI/CD builds. Webhooks with Git plugin. Ex invoke Jenkins pipelines whenever someone makes a pull request that merges code
     * Deployment strategies. Canary deployments, blue green deployments and rolling deploys.
+
+Tengo varios repositorios, uno para la web, otro para el testing y otro para lo demás. Con esto, creo un docker
+1. Crear un jenkins usando multiples githubs
+
 
 #### Ideas:
 My idea is to have several repositories connected to the same CI/CD, separating website, testing and CI/CD tool, in order to have the benefits of Multi-Repo.
