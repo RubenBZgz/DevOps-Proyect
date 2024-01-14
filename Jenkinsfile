@@ -4,7 +4,8 @@ pipeline{
         stage('Checkout') {
             steps {
                 // Automatically uses the default Git tool
-                checkout scm
+                // checkout scm
+                git 'https://github.com/SokeOn/DevOps-Proyect'
             }
         }
         stage('Build Maven') {
