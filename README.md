@@ -16,14 +16,19 @@ This DevOps Proyect is based in the Linkedin Learning Course of DevOps Foundatio
 
 ## Future Changes
 
-* Azure infrasctructure modification:
+* Azure infrastructure modification:
     * Apply best practices.
     * DNS.
     * Improve scalability and availability.
     * Analysis of potential improvements.
 * Workflow modification:
-    * Update automatically Azure Web App after the WF is completed.
+    * Automatically update Azure Web App after the WF is completed.
     * Multiple Jenkins slaves.
+ * Course suggestions:
+    * Run Explore California on a container orchestrator. Basic Docker Swarm - Advanced HashiCorp Nomad - Trending Kubernetes
+    * More Docker security. User command in dockerfile and control groups
+    * Automate CI/CD builds. Webhooks with Git plugin. Ex invoke Jenkins pipelines whenever someone makes a pull request that merges code
+    * Deployment strategies. Canary deployments, blue green deployments and rolling deploys.
 
 #### Ideas:
 My idea is to have several repositories connected to the same CI/CD, separating website, testing and CI/CD tool, in order to have the benefits of Multi-Repo.
@@ -35,9 +40,9 @@ Also, I would like to implement an artifact repository. The only one I know is n
 ### Resources
 
 * [Readme template](https://gist.github.com/DomPizzie/7a5ff55ffa9081f2de27c315f5018afc)
-<!-- * [Readme rules](https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/) -->
 * [Initial Microsoft Architecture](https://learn.microsoft.com/es-es/azure/architecture/web-apps/idea/scalable-ecommerce-web-app)
 * [Linkedin Learning Course](https://www.linkedin.com/learning/devops-foundations-your-first-project)
+<!-- * [Readme rules](https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/) -->
 
 ### Dependencies and recommendations
 #### Must Have:
