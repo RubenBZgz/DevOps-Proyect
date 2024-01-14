@@ -29,6 +29,7 @@ This DevOps Proyect is based in the Linkedin Learning Course of DevOps Foundatio
     * Automate CI/CD builds. Webhooks with Git plugin. Ex invoke Jenkins pipelines whenever someone makes a pull request that merges code
     * Deployment strategies. Canary deployments, blue green deployments and rolling deploys.
 
+Panel de Control -> Administrar Jenkins -> Tools -> instalaciones de Maven
 Tengo varios repositorios, uno para la web, otro para el testing y otro para lo demás. Con esto, creo un docker
 1. Crear un jenkins usando multiples githubs
 

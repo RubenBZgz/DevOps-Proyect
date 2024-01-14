@@ -1,13 +1,16 @@
 // Falta poner checkout al principio
-pipeline{
+pipeline {
     agent any
     stages {
-        stage('Build Maven') {
-            steps{
-                echo "====++++executing Buid Maven++++===="
-                withMaven {
-                    sh "mvn -Dmaven.test.failure.ignore=true clean package"
-                }
+        stage("verify tooling") {
+            steps {
+                sh '''
+                docker version
+                docker info
+                docker compose version 
+                curl --version
+                jq --version
+                '''
             }
         }
     }
