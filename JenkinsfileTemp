@@ -1,0 +1,74 @@
+
+// Falta poner checkout al principio
+pipeline {
+    // agent any
+    agent {
+        // docker { image 'docker/compose'}
+        docker { image 'alpine'}
+    }
+    
+    environment {
+        PROYECT_NAME = 'DevOps-Proyect'
+        PROYECT_PATH = ''
+    }
+
+    // def changeDirectory(String directory, Closure body) {
+    //     script {
+    //         dir(directory) {
+    //             body()
+    //         }
+    //     }
+    // }
+
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                script {
+                    // Delete the entire workspace before starting
+                    deleteDir()
+
+                    // Now you can proceed with your pipeline steps
+                    git branch: 'dev',url: 'https://github.com/SokeOn/DevOps-Proyect.git'
+                    def workspace = WORKSPACE
+                    echo "Current workspace is $WORKSPACE"
+                    echo 'Workspace cleaned and ready for use.'
+
+                    withEnv(["PROYECT_PATH=$WORKSPACE\\$PROYECT_NAME"]) {
+                        echo "El PROYECT_PATH es igual a $PROYECT_PATH"
+                    }
+                    
+                    // dir("${PROYECT_NAME}") {
+                        
+                    // }
+                    // echo "workspace cambiado es: $WORKSPACE"
+                    
+                }
+            }
+        }
+        
+        stage ('Docker') {
+            steps{
+                dir("${PROYECT_NAME}") {
+                    docker run --help
+                    sh 'docker-compose build'
+                }
+            }
+        }
+            
+        
+        // stage("verify tooling") {
+        //     steps {
+        //         // sh '''
+        //         // docker version
+        //         // docker info
+        //         // docker compose version 
+        //         // curl --version
+        //         // jq --version
+        //         // '''
+        //         sh 'docker version'
+        //     }
+        // }
+    }
+}
+
+
