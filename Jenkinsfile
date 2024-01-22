@@ -76,6 +76,15 @@ TF_VAR_azure_client_secret=$TF_VAR_azure_client_secret"""
                 echo "Starting Testing stage"
                 script {
                     bat "docker-compose up unit-tests"
+                    def script = 'docker-compose logs unit-tests | findstr "example"'
+
+                    def logsOutput
+
+                    // Execute the command and capture the output
+                    bat(script: script, returnStatus: false, stdout: logsOutput)
+
+                    // Print the captured output
+                    echo "Logs output: ${logsOutput}"
                 }
             }
         }
