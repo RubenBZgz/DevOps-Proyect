@@ -12,11 +12,22 @@ services:
     ports:
       - 4444:4444
       - 5901:5900
+    healthcheck:
+    #http://localhost:4444/wd/hub/status
+      test: ["CMD", "curl", "-f", "http://localhost:4444"]
+      interval: 5s
+      timeout: 4s
+      retries: 5
   website:  #WEBSITE
     build: 
       context: .
     ports:
       - 80:80
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 5s
+      timeout: 4s
+      retries: 5
   integration-tests: # RSpec testing
     environment:
       - SELENIUM_HOST=selenium
@@ -41,3 +52,8 @@ services:
     command: 
       - --pattern
       - /app/spec/unit/*_spec.rb
+    depends_on:
+      website:
+        condition: service_healthy
+      selenium:
+        condition: service_healthy

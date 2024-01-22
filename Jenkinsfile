@@ -8,6 +8,7 @@ pipeline {
     stages {
         stage('Initial Set up') {
             steps {
+                echo "Starting Initial Set up stage"
                 script {
                     // Delete the entire workspace before starting
                     deleteDir()
@@ -36,9 +37,15 @@ TF_VAR_azure_client_secret=$TF_VAR_azure_client_secret"""
                     echo "azure.env created"
                 }
             }
+            post{
+                failure{
+                    echo "Error in Initial Set Up stage"
+                }
+            }
         }
         stage ('Docker') {
             steps{
+                echo "Starting Docker Stage"
                 script {
                     img = 'docker/compose'
                     echo "Pull"
@@ -54,12 +61,32 @@ TF_VAR_azure_client_secret=$TF_VAR_azure_client_secret"""
                     } else {
                         echo 'Windows'
                         bat 'dir'
-                        bat "docker-compose up"
+                        bat "docker-compose create"
                     }
-                    echo "He terminado"
                 }
             }
-        }   
+            post{
+                failure{
+                    echo "Error in Docker stage"
+                }
+            }
+        } 
+        stage ("Testing") {
+            steps {
+                echo "Starting Testing stage"
+                script {
+                    bat "docker-compose up unit-tests"
+                }
+            }
+        }
+        stage ('Final') {
+            steps {
+                script {
+                    echo "Pipeline terminada"
+                    bat "docker-compose stop"
+                }
+            }
+        } 
     }
 }
 
