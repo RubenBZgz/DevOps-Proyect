@@ -1,17 +1,5 @@
 version: '3.7'
 services:
-  jenkins:  # JENKINS
-    build: 
-      context: .
-      dockerfile: jenkins.dockerfile
-    volumes:
-      - C:\jenkins_home:/var/jenkins_home
-      - ".:/app"
-    ports:
-      - 8080:8080
-#      - 50000:50000 # Master - slave communication
-  azure:  # AZURE
-    image: mcr.microsoft.com/azure-cli
   terraform:
     image: hashicorp/terraform
     volumes:
@@ -53,5 +41,3 @@ services:
     command: 
       - --pattern
       - /app/spec/unit/*_spec.rb
-  #database:
-  #application_server:

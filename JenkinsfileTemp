@@ -1,24 +1,19 @@
-
 // Falta poner checkout al principio
 pipeline {
-    // agent any
-    agent {
-        // docker { image 'docker/compose'}
-        docker { image 'alpine'}
-    }
+    agent any
+    // agent {
+    //     // docker { image 'docker/compose'}
+    //     docker { image 'alpine'}
+    // }
+    // agent {
+    //     docker { image 'docker/compose'}
+    // }
     
     environment {
         PROYECT_NAME = 'DevOps-Proyect'
         PROYECT_PATH = ''
+        //DOCKER_CONTAINER_PATH = '/app'
     }
-
-    // def changeDirectory(String directory, Closure body) {
-    //     script {
-    //         dir(directory) {
-    //             body()
-    //         }
-    //     }
-    // }
 
     stages {
         stage('Clean Workspace') {
@@ -27,47 +22,50 @@ pipeline {
                     // Delete the entire workspace before starting
                     deleteDir()
 
-                    // Now you can proceed with your pipeline steps
                     git branch: 'dev',url: 'https://github.com/SokeOn/DevOps-Proyect.git'
                     def workspace = WORKSPACE
-                    echo "Current workspace is $WORKSPACE"
-                    echo 'Workspace cleaned and ready for use.'
-
                     withEnv(["PROYECT_PATH=$WORKSPACE\\$PROYECT_NAME"]) {
                         echo "El PROYECT_PATH es igual a $PROYECT_PATH"
                     }
-                    
-                    // dir("${PROYECT_NAME}") {
-                        
-                    // }
-                    // echo "workspace cambiado es: $WORKSPACE"
-                    
                 }
             }
         }
         
         stage ('Docker') {
             steps{
-                dir("${PROYECT_NAME}") {
-                    docker run --help
-                    sh 'docker-compose build'
+                script {
+                    img = 'docker/compose'
+                    echo "Pull"
+                    docker.image(img).pull()
+                    echo "Run commands $WORKSPACE"
+                    
+                    if (isUnix()) {
+                        echo 'Linux'
+                        sh 'ls -al'
+                        // Copy files from the Jenkins workspace to the Docker container
+                        sh "docker cp . containerName:/app}"
+                    } else {
+                        echo 'Windows'
+                        bat 'dir'
+                        // Copy files from the Jenkins workspace to the Docker container
+                        //bat "docker create --name ${PROYECT_NAME} ${img}"
+                        //bat "docker cp . ${PROYECT_NAME}:/app"
+                        bat "docker-compose up"
+                    }
+                    // Use the docker.cp step to copy files from the workspace to the Docker container
+                    // docker.image(img).inside("-v .:${DOCKER_CONTAINER_PATH}") {
+                    //     echo "Estoy dentro"
+                    //     // docker.cp("${WORKSPACE}", "${DOCKER_CONTAINER_PATH}")
+                    // }
+                    //bat 'docker-compose cp docker/compose:. /app '
+                    // docker.image(img).run()
+                    // docker.image(img).run("docker/compose up")
+                    //docker.image(img).run("docker/compose cp docker/compose:. /app")
+                    //docker.image(img).run("docker/compose up")
+                    echo "He terminado"
                 }
             }
-        }
-            
-        
-        // stage("verify tooling") {
-        //     steps {
-        //         // sh '''
-        //         // docker version
-        //         // docker info
-        //         // docker compose version 
-        //         // curl --version
-        //         // jq --version
-        //         // '''
-        //         sh 'docker version'
-        //     }
-        // }
+        }   
     }
 }
 
