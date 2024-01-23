@@ -99,6 +99,7 @@ TF_VAR_azure_client_secret=$TF_VAR_azure_client_secret"""
         post {
             failure {
                 script {
+                    echo "Revert"
                     echo "Pipeline failed. Reverting the pull request"
                     // Assuming you have a GitHub token with appropriate permissions
                     def githubToken = 'your-github-token'
