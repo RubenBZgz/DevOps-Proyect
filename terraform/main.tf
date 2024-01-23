@@ -84,9 +84,14 @@ resource "azurerm_linux_web_app" "this" {
   location            = azurerm_service_plan.this.location
   service_plan_id     = azurerm_service_plan.this.id
 
+  identity {
+    type = SystemAssigned
+  }
+
   site_config {}
   
 }
+
 
 # Aquí se puede implementar un For Each.
 resource "azurerm_linux_web_app_slot" "pro" {
@@ -112,6 +117,7 @@ resource "azurerm_mssql_server" "example" {
   administrator_login          = "missadministrator"
   administrator_login_password = "thisIsKat11"
   minimum_tls_version          = "1.2"
+  #primary_user_assigned_identity_id = 
 
   azuread_administrator {
     login_username = "AzureAD Admin"
@@ -122,6 +128,21 @@ resource "azurerm_mssql_server" "example" {
     environment = "production"
   }
 }
+
+#<--------------------PERMISSION-------------------->
+//https://learn.microsoft.com/en-us/entra/identity-platform/multi-service-web-app-access-storage?tabs=azure-powershell%2Cprogramming-language-csharp
+resource "azurerm_role_assignment" "example" {
+  scope                = azurerm_storage_account.this.id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_linux_web_app.this.id
+}
+
+/*
+# Primero creas un grupo, después le asignas al grupo la identidad del web app y pa lante
+https://blog.cellenza.com/en/cloud/how-to-secure-azure-sql-database-with-managed-identity-azure-ad-authentication/
+https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group
+https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/managed_service_identity
+*/
 
 #<--------------------OUTPUT-------------------->
 output "azurerm_storage_account" {
