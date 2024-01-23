@@ -54,6 +54,7 @@ Also, I would like to implement an artifact repository. The only one I know is n
 * Developed using Windows 10
 * [Docker](https://www.docker.com/products/docker-desktop/)
 * [Azure CLI](https://learn.microsoft.com/es-es/cli/azure/install-azure-cli-windows?tabs=azure-cli)
+* Git.
 * Azure subscription
 * Azure ApplicationId configured for terraform. In case you don't have it created, you can use this code on cmd :point_down:
 ```
@@ -63,8 +64,7 @@ az role assignment create --assignee "{Your App ID}" --role "Contributor" --scop
 ```
 
 #### Optional:
-##### Programs:
-* Git. 
+##### Programs: 
 * RealVNC Viewer. Purpouse: testing.The connections is not encrypted, the security is not guaranted. Once installed, use localhost:5901 pass: secret after docker-compose up
 ##### Visual Studio Extensions:
 * Azure Account (Azure Tools if you want the whole pack)

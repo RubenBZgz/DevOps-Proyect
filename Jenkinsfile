@@ -1,8 +1,18 @@
+ /*     FALTA
+Hay que hacer un trigger para el pull request. https://devopscube.com/jenkins-build-trigger-github-pull-request/
+
+Multirepository
+Stage final con el terraform apply
+Mirar lo de cómo linkear azure apps con la website
+*/
 pipeline {
     agent any
     
     environment {
         PROYECT_NAME = 'DevOps-Proyect'
+        // Pending creation of credentials
+        GITHUB_TOKEN = ''
+        PIPELINE_RESULT = 'OK'
     }
 
     stages {
@@ -13,6 +23,7 @@ pipeline {
                     // Delete the entire workspace before starting
                     deleteDir()
 
+                    // Initializing Workspace environment
                     git branch: 'dev',url: 'https://github.com/SokeOn/DevOps-Proyect.git'
 
                     // Getting all credentials
@@ -21,7 +32,7 @@ pipeline {
                     TF_VAR_azure_client_id = credentials('TF_VAR_azure_client_id')
                     TF_VAR_azure_client_secret = credentials('TF_VAR_azure_client_secret')
 
-                    //Creation of azure credentials file
+                    // Creation of encrypted azure credentials file 
                     echo "Credentials"
                     def fileContent = 
 """TF_VAR_azure_subscription_id=$TF_VAR_azure_subscription_id
@@ -40,6 +51,7 @@ TF_VAR_azure_client_secret=$TF_VAR_azure_client_secret"""
             post{
                 failure{
                     echo "Error in Initial Set Up stage"
+                    ${env.PIPELINE_RESULT} = 'ERROR'
                 }
             }
         }
@@ -47,17 +59,17 @@ TF_VAR_azure_client_secret=$TF_VAR_azure_client_secret"""
             steps{
                 echo "Starting Docker Stage"
                 script {
+                    /*
                     img = 'docker/compose'
                     echo "Pull"
                     docker.image(img).pull()
-                    echo "Run commands $WORKSPACE"
+                    echo "Run commands $WORKSPACE"*/
                     
-                    
+                    // Creation of containers using docker-compose in the console
                     if (isUnix()) {
                         echo 'Linux'
                         sh 'ls -al'
-                        // Copy files from the Jenkins workspace to the Docker container
-                        sh "docker-compose up}"
+                        sh "docker-compose create"
                     } else {
                         echo 'Windows'
                         bat 'dir'
@@ -68,6 +80,7 @@ TF_VAR_azure_client_secret=$TF_VAR_azure_client_secret"""
             post{
                 failure{
                     echo "Error in Docker stage"
+                    ${env.PIPELINE_RESULT} = 'ERROR'
                 }
             }
         } 
@@ -75,7 +88,10 @@ TF_VAR_azure_client_secret=$TF_VAR_azure_client_secret"""
             steps {
                 echo "Starting Testing stage"
                 script {
+                    // Running unit-tests docker-compose service
                     bat "docker-compose up unit-tests"
+
+                    // Getting unit-tests result
                     def script = 'docker-compose logs unit-tests | findstr "example"'
 
                     def logsOutput
@@ -87,38 +103,73 @@ TF_VAR_azure_client_secret=$TF_VAR_azure_client_secret"""
                     echo "Logs output: ${logsOutput}"
                 }
             }
+            post{
+                failure{
+                    echo "Error in Testing stage"
+                    ${env.PIPELINE_RESULT} = 'ERROR'
+                }
+            }
+        }
+        stage ('Terraform') {
+            steps {
+                script {
+                    bat "docker-compose run terraform plan"
+                    // Getting result of terraform plan
+                    def result = ''
+
+                    
+                    if(result = 'ERROR'){
+                        // Terraform apply later
+                        ${env.PIPELINE_RESULT} = 'ERROR'
+                    }
+                }
+            }
+            post{
+                failure{
+                    echo "Error in Terraform stage"
+                    ${env.PIPELINE_RESULT} = 'ERROR'
+                }
+            }
         }
         stage ('Final') {
             steps {
                 script {
                     echo "Pipeline terminada"
                     bat "docker-compose stop"
+                    //bat "docker-compose down"
                 }
             }
         }
-        post {
-            failure {
-                script {
-                    def commit_hask = git log -1
-                    git revert -m 1 <commit-hash> --no-edit
-                    git push https://<your-username>:<token>@github.com/<your-repo>.git <branch-name>
+        
+    }
+    /*  In case of any stage fails, reverts GitHub main branch to the previous commit. 
+        It's a good practice having production environment only with working code.
 
-
-                    echo "Pipeline failed. Reverting the pull request"
-                    // Assuming you have a GitHub token with appropriate permissions
-                    def githubToken = 'your-github-token'
-                    def pullRequestId = env.CHANGE_ID
-
-                    // Revert the pull request using Git/GitHub API
-                    //sh "git checkout -b revert-${pullRequestId} master"
-                    //sh "git revert -m 1 ${pullRequestId}"
-                    //sh "git push origin revert-${pullRequestId}"
-
-                    // Create a new pull request to merge the revert branch
-                    //sh "curl -X POST -H 'Authorization: token ${githubToken}' -d '{\"base\":\"master\",\"head\":\"revert-${pullRequestId}\",\"title\":\"Revert PR ${pullRequestId}\"}' https://api.github.com/repos/your/repo/pulls"
-                }
+        Habría que mirar cómo hacerlo con multibranch, consiguiendo el nombre de la branch que ha hecho el pull request 
+        y aplicando el revert a dicha branch.
+        */
+    post {
+        success {
+            echo "PIPELINE SUCCESS"
+            // bat "docker-compose run terraform plan"
+            if(${env.PIPELINE_RESULT = 'OK'}){
+                echo ("Applying terraform plan")
+                // bat "docker-compose run terraform plan"
+            } else {
+                echo "Pipeline failed. Reverting the pull request"
+                //def commit_hask = git log -1
+                //git revert -m 1 <commit-hash> --no-edit
+                //git push https://<your-username>:${env.GITHUB_TOKEN}@github.com/<your-repo>.git <branch-name>
             }
         }
+        failure {
+            script {
+                echo "Pipeline failed. Reverting the pull request"
+                //def commit_hask = git log -1
+                //git revert -m 1 <commit-hash> --no-edit
+                //git push https://<your-username>:${env.GITHUB_TOKEN}@github.com/<your-repo>.git <branch-name>
+                }
+            }
     }
 }
 
