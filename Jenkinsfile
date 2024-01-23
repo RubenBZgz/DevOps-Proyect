@@ -95,7 +95,25 @@ TF_VAR_azure_client_secret=$TF_VAR_azure_client_secret"""
                     bat "docker-compose stop"
                 }
             }
-        } 
+        }
+        post {
+            failure {
+                script {
+                    echo "Pipeline failed. Reverting the pull request"
+                    // Assuming you have a GitHub token with appropriate permissions
+                    def githubToken = 'your-github-token'
+                    def pullRequestId = env.CHANGE_ID
+
+                    // Revert the pull request using Git/GitHub API
+                    //sh "git checkout -b revert-${pullRequestId} master"
+                    //sh "git revert -m 1 ${pullRequestId}"
+                    //sh "git push origin revert-${pullRequestId}"
+
+                    // Create a new pull request to merge the revert branch
+                    //sh "curl -X POST -H 'Authorization: token ${githubToken}' -d '{\"base\":\"master\",\"head\":\"revert-${pullRequestId}\",\"title\":\"Revert PR ${pullRequestId}\"}' https://api.github.com/repos/your/repo/pulls"
+                }
+            }
+        }
     }
 }
 
