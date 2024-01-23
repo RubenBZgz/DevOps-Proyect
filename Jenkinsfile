@@ -99,6 +99,11 @@ TF_VAR_azure_client_secret=$TF_VAR_azure_client_secret"""
         post {
             failure {
                 script {
+                    def commit_hask = git log -1
+                    git revert -m 1 <commit-hash> --no-edit
+                    git push https://<your-username>:<token>@github.com/<your-repo>.git <branch-name>
+
+
                     echo "Pipeline failed. Reverting the pull request"
                     // Assuming you have a GitHub token with appropriate permissions
                     def githubToken = 'your-github-token'
